@@ -6,7 +6,7 @@
 
 ## 1. Project Rationale
 
-Small‑cell lung cancer (SCLC) remains one of the most aggressive solid tumours, with limited targeted‑therapy options and a five‑year survival rate below 10 %.^1  Although most approved epidermal growth‑factor receptor (EGFR) inhibitors are geared toward non‑small‑cell lung cancer (NSCLC), EGFR signalling is increasingly recognised as a vulnerability in select SCLC subtypes.^2  This repository documents a **proof‑of‑concept workflow** that mines public chemical/bioactivity data to surface novel EGFR‑modulating chemotypes while proactively assessing developability and safety liabilities.
+Small‑cell lung cancer (SCLC) remains one of the most aggressive solid tumours, with limited targeted‑therapy options and a five‑year survival rate below 10 %. Although epidermal growth‑factor receptor (EGFR) inhibitors are geared toward non‑small‑cell lung cancer (NSCLC), EGFR signalling is increasingly recognised as a vulnerability in select SCLC subtypes.  This repository documents a **workflow** that mines public chemical/bioactivity data to surface novel EGFR‑modulating chemotypes while proactively assessing developability and safety liabilities.
 
 ---
 ## 2. End‑to‑End Workflow
@@ -17,7 +17,7 @@ Library preparation – Clean and standardise the ChEMBL compunds known active o
 
 Fingerprint generation – Compute three complementary fingerprints—ECFP4, ECFP6, and MACCS‑166—for every molecule.
 
-Similarity search – Perform Tanimoto‑based searches against a curated set of compounds similar to tyrosine‑kinase inhibitors (TKIs : Erlotinib, Gefitinib, Afatinib et Osimertinib).
+Similarity search – Perform Tanimoto‑based searches against a curated set of compounds similar to tyrosine‑kinase inhibitors (TKIs).
 
 Consensus ranking – Fuse the three ranked lists to yield a single hit list enriched for TKIs-likely.
 
@@ -56,7 +56,7 @@ Diagnostics – Generate bias‑variance and learning curves; assess applicabili
 Docking workflows – Deploy structure‑based virtual screening against EGFR crystal structures.
 
 De novo design – Explore variational auto‑encoders (VAEs) and graph neural‑network (GNN) reinforcement learning for scaffold generation.
----
+
 
 ## 3. Data Sources
 
