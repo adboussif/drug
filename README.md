@@ -1,65 +1,77 @@
-# Computer-Assisted Drug Design (CADD) Learning Journey
+# Computer‑Assisted Drug Design for EGFR‑Driven Lung Cancer
 
-This repository documents my self-directed learning journey in Computer-Assisted Drug Design (CADD). As I delve into the fascinating intersection of machine learning, deep learning, and bioinformatics for drug discovery, I will be publishing various notebooks covering different CADD methodologies and topics.
+> **A self‑directed, end‑to‑end exploration of modern cheminformatics and machine‑learning techniques applied to early‑stage oncology drug discovery.**
 
-## About This Project
+---
 
-Drug discovery is a complex, time-consuming, and expensive process. Computer-Assisted Drug Design (CADD) offers powerful computational approaches to accelerate and refine the development of new therapeutic molecules. This project aims to build a comprehensive understanding and practical application of CADD pipelines.
+## 1. Project Rationale
 
-My learning focuses on several key areas within CADD:
+Small‑cell lung cancer (SCLC) remains one of the most aggressive solid tumours, with limited targeted‑therapy options and a five‑year survival rate below 10 %.^1  Although most approved epidermal growth‑factor receptor (EGFR) inhibitors are geared toward non‑small‑cell lung cancer (NSCLC), EGFR signalling is increasingly recognised as a vulnerability in select SCLC subtypes.^2  This repository documents a **proof‑of‑concept workflow** that mines public chemical/bioactivity data to surface novel EGFR‑modulating chemotypes while proactively assessing developability and safety liabilities.
 
-* **Understanding Drug Discovery Fundamentals**: Grasping the economic and scientific challenges of drug discovery, including the identification of viable candidate molecules and early-stage filtering.
-* **Molecular Representation and Manipulation**: Learning to encode molecules using formats like SMILES, generate molecular fingerprints (e.g., ECFP), and measure molecular similarity (e.g., Tanimoto coefficient) using libraries such as RDKit.
-* **Machine Learning for Property Prediction**: Training supervised models (e.g., linear regressions, random forests) to predict crucial target properties like solubility, toxicity, and enzyme inhibition (e.g., cytochrome P450) based on public datasets like ChEMBL and PubChem.
-* **Exploratory Data Analysis**: Applying techniques like Principal Component Analysis (PCA) to reduce dimensionality and explore chemical space diversity.
-* **Deep Learning for De Novo Design**: Exploring generative models (variational autoencoders, graph neural networks) using libraries like PyTorch and DeepChem to design novel molecular structures with optimized bioactivity or pharmacokinetic profiles.
-* **Virtual Screening (VS)**:
-    * **Ligand-Based Virtual Screening (LBVS)**: Employing molecular similarity searches and Machine Learning models (QSAR/QSPR) to identify active molecules when the target protein's 3D structure is unknown. This includes preparing data, training classification models (like Random Forest), and evaluating their performance using metrics such as PR AUC and MCC.
-    * **Structure-Based Virtual Screening (SBVS)**: Utilizing molecular docking to predict how potential ligands bind to a known 3D protein target, assessing binding poses and affinity.
-* **ADMET Property Prediction**: Developing computational models (QSPR and other AI models) to predict Absorption, Distribution, Metabolism, Excretion, and Toxicity (ADMET) properties early in the discovery phase, reducing late-stage failures. This includes predicting aqueous solubility, CYP inhibition, and hERG channel blockade.
+---
+## 2. End‑to‑End Workflow
 
-## Project Structure
+-  Ligand‑Based Virtual Screening (LBVS)
 
-This repository will contain Jupyter notebooks, Python scripts, and potentially data files organized by topic or methodology.
+Library preparation – Clean and standardise the ChEMBL compunds known active on EGFR to obtain a modelling‑ready compound set.
 
-* `notebooks/`: Contains Jupyter notebooks demonstrating various CADD techniques and experiments.
-* `data/`: (To be added if necessary) Will store datasets used in the notebooks.
-* `scripts/`: (To be added if necessary) Utility scripts.
+Fingerprint generation – Compute three complementary fingerprints—ECFP4, ECFP6, and MACCS‑166—for every molecule.
 
-## Getting Started
+Similarity search – Perform Tanimoto‑based searches against a curated set of compounds similar to tyrosine‑kinase inhibitors (TKIs : Erlotinib, Gefitinib, Afatinib et Osimertinib).
 
-To run the notebooks in this repository, you will need to have Python installed along with the necessary libraries.
+Consensus ranking – Fuse the three ranked lists to yield a single hit list enriched for TKIs-likely.
 
-### Prerequisites
+-  Early‑Stage Filtering
 
-* Python 3.x
-* Jupyter Notebook or JupyterLab
+Drug‑likeness rules – Apply Lipinski rules of five to remove poor oral candidates.
 
-### Installation
+Liability alerts – Screen out PAINS scaffolds to avoid promiscuous or assay‑interfering compounds.
 
-1.  Clone this repository:
-    ```bash
-    git clone [https://github.com/yourusername/CADD-Learning-Journey.git](https://github.com/yourusername/CADD-Learning-Journey.git)
-    cd CADD-Learning-Journey
-    ```
-2.  Create a virtual environment (recommended):
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    ```
-3.  Install the required libraries:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    (A `requirements.txt` file will be generated as I add more notebooks with specific library dependencies. For now, you will likely need `rdkit-pypi`, `scikit-learn`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `torch` (if using deep learning), and `deepchem`.)
+-  hERG Liability QSAR
 
-### Running the Notebooks
+Model panel – Train SGD, Logistic Regression, SVM, and Random Forest classifiers on the Therapeutics Data Commons hERG blocker dataset.
 
-1.  Start Jupyter Notebook/Lab:
-    ```bash
-    jupyter notebook
-    ```
-2.  Navigate to the `notebooks/` directory and open any `.ipynb` file to explore the content.
+Model selection – Pick the best algorithm (Random Forest) using ROC‑AUC, PR‑AUC, and MCC.
+
+Risk scoring – Predict hERG‑blocker probability for virtual‑screening hits and for FDA‑approved TKIs (benchmark).
+
+- CYP450 Multi‑Isozyme ADMET
+
+Data featurisation – Extract molecular features for five TDC CYP inhibition datasets (CYP2C19, CYP2D6, CYP3A4, CYP1A2, CYP2C9).
+
+Learning strategy – Fit both one‑vs‑rest and classifier‑chain Random Forest models to capture multilabel patterns.
+
+Evaluation – Report per‑isozyme metrics and global multilabel scores (Hamming loss, subset accuracy, macro ROC‑AUC).
+
+-  Solubility Regression
+
+Dataset – AqSolDB accessed via the TDC API.
+
+Algorithms – Linear Regression, Support‑Vector Regression (SVR), and RANSAC.
+
+Diagnostics – Generate bias‑variance and learning curves; assess applicability domain using bounding‑box and convex‑hull methods.
+
+-  (Planned) Structure‑Based and Generative Extensions
+
+Docking workflows – Deploy structure‑based virtual screening against EGFR crystal structures.
+
+De novo design – Explore variational auto‑encoders (VAEs) and graph neural‑network (GNN) reinforcement learning for scaffold generation.
+---
+
+## 3. Data Sources
+
+* **ChEMBL** — bioactivity & structures (2024‑12).^3
+* **Therapeutics Data Commons (TDC)** — standardized ADMET sets.^4
+* **AqSolDB** — curated aqueous solubility measurements.^5
+* **PDB 4HJO** — EGFR tyrosine‑kinase domain co‑crystal.^6
 
 
-**Note**: This README will be continuously updated as my learning progresses and new notebooks are added.
+---
+
+
+## 6. Expected Outcomes
+
+* **Ranked hit list** of EGFR‑like chemotypes free from obvious liability flags.
+* **ADMET risk dashboard** (hERG, CYP‑inhibition, solubility) to triage hits before wet‑lab validation.
+
+---
