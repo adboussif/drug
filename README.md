@@ -6,7 +6,7 @@
 
 ## 1. Project Rationale
 
-Small‑cell lung cancer (SCLC) remains one of the most aggressive solid tumours, with limited targeted‑therapy options and a five‑year survival rate below 10 %. Although epidermal growth‑factor receptor (EGFR) inhibitors are geared toward non‑small‑cell lung cancer (NSCLC), EGFR signalling is increasingly recognised as a vulnerability in select SCLC subtypes.  This repository documents a **workflow** that mines public chemical/bioactivity data to surface novel EGFR‑modulating chemotypes while proactively assessing developability and safety liabilities.
+This repository documents an independent, hands-on research project exploring the use of cheminformatics and machine-learning methods to identify promising new EGFR-targeting compounds for small-cell lung cancer (SCLC)—a highly aggressive cancer type with limited targeted therapies. While current EGFR inhibitors are mainly developed for non-small-cell lung cancer (NSCLC), emerging evidence highlights EGFR signaling as a potential vulnerability in specific SCLC subtypes. By leveraging public chemical and bioactivity data, this project implements ligand-based virtual screening, rigorous safety assessments (hERG and CYP450), and solubility modeling to prioritize chemically viable and potentially safer tyrosine-kinase inhibitor (TKI) analogs. Although conducted independently by a master's-level student, this workflow is carefully documented, reproducible, and structured to serve as a credible reference or foundation for future research or educational purposes in computer-assisted drug design.
 
 ---
 ## 2. End‑to‑End Workflow
