@@ -15,17 +15,15 @@ Small‑cell lung cancer (SCLC) remains one of the most aggressive solid tumours
 
 Library preparation – Clean and standardise the ChEMBL compunds known active on EGFR to obtain a modelling‑ready compound set.
 
+Drug‑likeness rules – Apply Lipinski rules of five to remove poor oral candidates.
+
+Liability alerts – Screen out PAINS scaffolds to avoid promiscuous or assay‑interfering compounds.
+
 Fingerprint generation – Compute three complementary fingerprints—ECFP4, ECFP6, and MACCS‑166—for every molecule.
 
 Similarity search – Perform Tanimoto‑based searches against a curated set of compounds similar to tyrosine‑kinase inhibitors (TKIs).
 
-Consensus ranking – Fuse the three ranked lists to yield a single hit list enriched for TKIs-likely.
-
--  Early‑Stage Filtering
-
-Drug‑likeness rules – Apply Lipinski rules of five to remove poor oral candidates.
-
-Liability alerts – Screen out PAINS scaffolds to avoid promiscuous or assay‑interfering compounds.
+Consensus ranking – Fuse the four ranked lists to yield a single hit list enriched for TKIs-likely.
 
 -  hERG Liability QSAR
 
@@ -69,7 +67,7 @@ De novo design – Explore variational auto‑encoders (VAEs) and graph neural�
 ---
 
 
-## 6. Expected Outcomes
+## 4. Expected Outcomes
 
 * **Ranked hit list** of EGFR‑like chemotypes free from obvious liability flags.
 * **ADMET risk dashboard** (hERG, CYP‑inhibition, solubility) to triage hits before wet‑lab validation.
